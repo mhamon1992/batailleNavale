@@ -8,6 +8,12 @@ public class Position {
 	
 	
 	/**
+	 * 
+	 */
+	public Position() {
+		super();
+	}
+	/**
 	 * @param abscisse
 	 * @param ordonnee
 	 */

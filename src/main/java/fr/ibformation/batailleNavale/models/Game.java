@@ -13,10 +13,8 @@ public class Game {
 	public Game(Player player) {
 		super();
 		this.player1 =  player;
-		this.player2 = null;
-		this.ownMap = new Map();
-		this.attackMap = new Map();
-		this.nbTour = 0;
+		
+		
 	}
 	
 	public Player getPlayer1() {
@@ -54,6 +52,10 @@ public class Game {
 
 	public int getNbTour() {
 		return nbTour;
+	}
+
+	public void setNbTour(int nbTour) {
+		this.nbTour = nbTour;
 	}
 
 	public void incrementTour(){

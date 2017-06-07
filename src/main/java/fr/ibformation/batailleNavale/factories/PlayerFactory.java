@@ -5,7 +5,7 @@ import fr.ibformation.batailleNavale.models.Player;
 
 public abstract class PlayerFactory {
 	
-	public Player createPlayer(String nom){
+	public static Player createPlayer(String nom){
 		Player player = new Player(nom);
 		return player;
 	}

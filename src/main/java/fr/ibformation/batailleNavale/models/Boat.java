@@ -1,10 +1,13 @@
 package fr.ibformation.batailleNavale.models;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Boat {
 	private String boatName;
 	private int boatWidth;
-	private Position positions[];
+	private List<Position> positions;
 	/**
 	 * 
 	 */
@@ -20,7 +23,7 @@ public class Boat {
 		super();
 		this.boatName = boatName;
 		this.boatWidth = boatWidth;
-		this.positions = new Position[boatWidth];
+		this.positions = new ArrayList<Position>();
 	}
 	public String getNomBateau() {
 		return boatName;
@@ -34,36 +37,43 @@ public class Boat {
 	public void setTailleBateau(int boatWidth) {
 		this.boatWidth = boatWidth;
 	}
-	public Position[] getPositions() {
+	public List<Position> getPositions() {
 		return positions;
 	}
-	public void setPositions(Position[] positions) {
+	public void setPositions(List<Position> positions) {
 		this.positions = positions;
 	}
 	public void generateBoat(){
-		int value = (int) Math.random();
-		int initPositionX = (int) Math.random()*9;
-		int initPositionY = (int) Math.random()*9;
-		
+		Random random = new Random();
+		int value = random.nextInt(1);
+		System.out.println("orientation"+value);
+		int initPositionX = random.nextInt(9);
+		int initPositionY = random.nextInt(9);
 		if(value == 0){
 			for(int i = 0; i<this.getTailleBateau();i++){
-					this.positions[i].setOccupe(true);
-					this.positions[i].setShooted(false);
-					this.positions[i].setOrdonnee(initPositionY);
+				Position pos = new Position();
+					pos.setOccupe(true);
+					pos.setShooted(false);
+					pos.setOrdonnee(initPositionY);
 				if(initPositionX + this.getTailleBateau() >= Parameter.maxWitdth){
-					this.positions[i].setAbscisse(initPositionX-i);
+					pos.setAbscisse(initPositionX-i);
 				}else{
-					this.positions[i].setAbscisse(initPositionX+i);
+					pos.setAbscisse(initPositionX+i);
 				}
+				this.positions.add(pos);
 			}
 		}else{
 			for(int i = 0; i<this.getTailleBateau();i++){
-				this.positions[i].setOrdonnee(initPositionX);
+				Position pos = new Position();
+				pos.setOccupe(true);
+				pos.setShooted(false);
+				pos.setOrdonnee(initPositionX);
 				if(initPositionY + this.getTailleBateau() >= Parameter.maxWitdth){
-					this.positions[i].setAbscisse(initPositionY-i);
+					pos.setAbscisse(initPositionY-i);
 				}else{
-					this.positions[i].setAbscisse(initPositionY+i);
+					pos.setAbscisse(initPositionY+i);
 				}
+				this.positions.add(pos);
 			}
 		}
 	}
