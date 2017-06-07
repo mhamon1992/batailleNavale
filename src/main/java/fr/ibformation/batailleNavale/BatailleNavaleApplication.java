@@ -31,13 +31,13 @@ public class BatailleNavaleApplication {
 			int x = scan.nextInt();
 			System.out.println("position du tir en y");
 			int y = scan.nextInt();
-			player1.sendMissile(x, y, game.getAttackMap());
+			player1.sendMissile(x, y, game.getAttackMap(),player2);
 			
 			System.out.println("position du tir en x");
 			int x1 = scan.nextInt();
 			System.out.println("position du tir en y");
 			int y1 = scan.nextInt();
-			player2.sendMissile(x1, y1, game.getOwnMap());
+			player2.sendMissile(x1, y1, game.getOwnMap(),player1);
 			game.incrementTour();
 		}
 		

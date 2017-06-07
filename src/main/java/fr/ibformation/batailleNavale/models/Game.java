@@ -13,8 +13,6 @@ public class Game {
 	public Game(Player player) {
 		super();
 		this.player1 =  player;
-		
-		
 	}
 	
 	public Player getPlayer1() {

@@ -45,7 +45,7 @@ public class Boat {
 	}
 	public void generateBoat(){
 		Random random = new Random();
-		int value = random.nextInt(1);
+		int value = random.nextInt(2);
 		System.out.println("orientation"+value);
 		int initPositionX = random.nextInt(9);
 		int initPositionY = random.nextInt(9);
@@ -62,20 +62,43 @@ public class Boat {
 				}
 				this.positions.add(pos);
 			}
-		}else{
+		}else if(value == 1){
 			for(int i = 0; i<this.getTailleBateau();i++){
 				Position pos = new Position();
 				pos.setOccupe(true);
 				pos.setShooted(false);
-				pos.setOrdonnee(initPositionX);
+				pos.setAbscisse(initPositionX);
 				if(initPositionY + this.getTailleBateau() >= Parameter.maxWitdth){
-					pos.setAbscisse(initPositionY-i);
+					pos.setOrdonnee(initPositionY-i);
 				}else{
-					pos.setAbscisse(initPositionY+i);
+					pos.setOrdonnee(initPositionY+i);
 				}
 				this.positions.add(pos);
 			}
 		}
+	}
+	
+	public boolean verification(Map map, Player player){
+		int x;
+		int y;
+		int value = 0;
+		boolean res = false;
+		for(int i =0 ; i<positions.size();i++){
+			x = this.positions.get(i).getAbscisse();
+			y = this.positions.get(i).getOrdonnee();
+			int index = (x*Parameter.maxWitdth)+y;
+			if(map.getPositions().get(index).isShooted()){
+				value++;
+			}
+			System.out.println(map.getPositions().get(index).isShooted());
+		}
+		System.out.println(value);
+		if( value == positions.size()){
+			System.out.println(this.getNomBateau()+" de "+player.getNickname()+" coulé ");
+			res = true;
+			
+		}
+		return res;
 	}
 	
 	

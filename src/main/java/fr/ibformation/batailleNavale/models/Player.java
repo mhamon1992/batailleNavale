@@ -1,6 +1,8 @@
 package fr.ibformation.batailleNavale.models;
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class Player {
 		this.missiles = missiles;
 	}
 	
-	public void sendMissile(int x, int y, Map map){
+	public void sendMissile(int x, int y, Map map,Player player){
 		this.missiles.add( new Missile(new Position(x, y, false, true)));
 		for(int i =0; i<map.getPositions().size();i++){
 			if(map.getPositions().get(i).getAbscisse() == x && map.getPositions().get(i).getOrdonnee() == y){
@@ -69,8 +71,13 @@ public class Player {
 				}
 			}
 		}
-		
-		
+		int i = 0;
+		for(Boat boat: player.boats){
+			boolean verif = boat.verification(map,player);
+			if(verif = true){
+				i++;
+			}
+		}
 	}
 	
 	public void addBoats(){
