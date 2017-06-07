@@ -26,6 +26,7 @@ public class BatailleNavaleApplication {
 			System.out.println();
 			player2.displayBoat(game.getAttackMap());
 			player2.displayAttacks(game.getOwnMap());
+			System.out.println();
 			Scanner scan = new Scanner(System.in);
 			System.out.println("position du tir en x");
 			int x = scan.nextInt();
@@ -39,6 +40,15 @@ public class BatailleNavaleApplication {
 			int y1 = scan.nextInt();
 			player2.sendMissile(x1, y1, game.getOwnMap(),player1);
 			game.incrementTour();
+		}
+		if(player1.getScore()>player2.getScore()){
+			System.out.println(player1.getNickname()+" a gagné");
+			player1.setNbvictory(player1.getNbvictory()+1);
+		}else if(player1.getScore() == player2.getScore()){
+			System.out.println("égalité");
+		}else{
+			System.out.println("victoire de:"+player2.getNickname());
+			player2.setNbvictory(player2.getNbvictory()+1);
 		}
 		
 		

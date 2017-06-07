@@ -1,8 +1,5 @@
 package fr.ibformation.batailleNavale.models;
 
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +10,9 @@ public class Player {
 	private String nickname;
 	private List<Boat> boats;
 	private List<Missile> missiles;
+	private int score;
+	private int nbvictory;
+
 	/**
 	 * @param idPlayer
 	 * @param nickname
@@ -20,10 +20,12 @@ public class Player {
 	 */
 	public Player( String nickname) {
 		super();
-//		this.idPlayer = idPlayer;
+		//		this.idPlayer = idPlayer;
 		this.nickname = nickname;
 		this.boats = new ArrayList<Boat>();
 		this.missiles = new ArrayList<Missile>();
+		this.setNbvictory(0);
+		
 	}
 	/**
 	 * 
@@ -55,6 +57,20 @@ public class Player {
 	public void setMissiles(List<Missile> missiles) {
 		this.missiles = missiles;
 	}
+
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public int getNbvictory() {
+		return nbvictory;
+	}
+	public void setNbvictory(int nbvictory) {
+		this.nbvictory = nbvictory;
+	}
 	
 	public void sendMissile(int x, int y, Map map,Player player){
 		this.missiles.add( new Missile(new Position(x, y, false, true)));
@@ -63,6 +79,7 @@ public class Player {
 				if(map.getPositions().get(i).isOccupe() == true){
 					map.setMissileOnMap(new Position(x, y, true, true));
 					this.missiles.add( new Missile(new Position(x, y, true, true)));
+					this.score++;
 					System.out.println("Touché");
 				}else{
 					this.missiles.add( new Missile(new Position(x, y, false, true)));
@@ -74,19 +91,25 @@ public class Player {
 		int i = 0;
 		for(Boat boat: player.boats){
 			boolean verif = boat.verification(map,player);
-			if(verif = true){
+			if(verif == true){
 				i++;
 			}
 		}
+		System.out.println(player.boats.size());
+		System.out.println("i:"+i);
+		if(i == player.boats.size()){
+			System.exit(1);
+		}
 	}
-	
+
 	public void addBoats(){
 		Boat boat = new AircraftCarrier();
 		boat.generateBoat();
 		this.boats.add(boat);
 	}
-	
+
 	public Game createGame(){
+		this.score = 0;
 		Game game = GameFactory.createGame(this);
 		addBoats();
 		game.setOwnMap(new Map());
@@ -101,7 +124,7 @@ public class Player {
 		}
 		return game;
 	}
-	
+
 	public void joinGame(Game game){
 		Map attackMap = game.getAttackMap();
 		addBoats();
@@ -112,7 +135,7 @@ public class Player {
 			}
 		}
 	}
-	
+
 	public void displayBoat(Map map){
 		List<Position> positions = map.getPositions();
 		int temp = 0;
@@ -120,15 +143,15 @@ public class Player {
 		for(int i = 0;i<positions.size();i++){
 			if(positions.get(i).getOrdonnee() == 0){
 				if(positions.get(i).getAbscisse() != temp){
-//					System.out.println(positions.get(i).getAbscisse()+positions.get(i).getOrdonnee());
-//					System.out.println(positions.get(i).getOrdonnee());
+					//					System.out.println(positions.get(i).getAbscisse()+positions.get(i).getOrdonnee());
+					//					System.out.println(positions.get(i).getOrdonnee());
 					System.out.println();				
 					temp = positions.get(i).getOrdonnee();
 				}
 				System.out.print("|");
 			}
-			
-			
+
+
 			if(positions.get(i).isOccupe()){
 				System.out.print(1+"|");
 			}else{
@@ -136,7 +159,7 @@ public class Player {
 			}
 		}
 	}
-	
+
 	public void displayAttacks(Map map){
 		List<Position> positions = map.getPositions();
 		int temp = 0;
@@ -157,4 +180,5 @@ public class Player {
 		}
 	}
 	
+
 }

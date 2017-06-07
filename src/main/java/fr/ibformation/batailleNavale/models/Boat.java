@@ -1,5 +1,7 @@
 package fr.ibformation.batailleNavale.models;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -101,6 +103,21 @@ public class Boat {
 		return res;
 	}
 	
+	public boolean Collision(Player player){
+		boolean res = true;
+		for(Boat boat: player.getBoats()){
+			for(Position pos : boat.getPositions()){
+				int i = 0;
+				while(i<this.positions.size() || (pos.getAbscisse() != this.positions.get(i).getAbscisse() &&pos.getOrdonnee() != this.positions.get(i).getOrdonnee()) ){
+					i++;
+				}
+				if(i<this.positions.size()){
+					res = false;
+				}
+			}
+		}
+		return res;
+	}
 	
 	
 }
