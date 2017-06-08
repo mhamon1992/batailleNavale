@@ -1,6 +1,5 @@
 package fr.ibformation.batailleNavale.models;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +53,9 @@ public class Boat {
 		if(value == 0){
 			for(int i = 0; i<this.getTailleBateau();i++){
 				Position pos = new Position();
-					pos.setOccupe(true);
-					pos.setShooted(false);
-					pos.setOrdonnee(initPositionY);
+				pos.setOccupe(true);
+				pos.setShooted(false);
+				pos.setOrdonnee(initPositionY);
 				if(initPositionX + this.getTailleBateau() >= Parameter.maxWitdth){
 					pos.setAbscisse(initPositionX-i);
 				}else{
@@ -79,7 +78,7 @@ public class Boat {
 			}
 		}
 	}
-	
+
 	public boolean verification(Map map, Player player){
 		int x;
 		int y;
@@ -98,28 +97,23 @@ public class Boat {
 		if( value == positions.size()){
 			System.out.println(this.getNomBateau()+" de "+player.getNickname()+" coulé ");
 			res = true;
-			
+
 		}
 		return res;
 	}
-	
-	public boolean Collision(Player player){
+
+	public boolean Collision(Map map){
 		boolean res = true;
-		for(Boat boat: player.getBoats()){
-			for(Position pos : boat.getPositions()){
-				int i = 0;
-				while(i<this.positions.size() || (pos.getAbscisse() != this.positions.get(i).getAbscisse() &&pos.getOrdonnee() != this.positions.get(i).getOrdonnee()) ){
-					i++;
-				}
-				if(i<this.positions.size()){
-					res = false;
-				}
+		for(Position pos: this.getPositions()){
+			int index = (pos.getAbscisse()*10+pos.getOrdonnee());
+			if(map.getPositions().get(index).isOccupe()){
+				res = false;
 			}
 		}
 		return res;
 	}
-	
-	
+
+
 }
 
 

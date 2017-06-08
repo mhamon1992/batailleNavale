@@ -13,7 +13,7 @@ import fr.ibformation.batailleNavale.models.Player;
 @SpringBootApplication
 public class BatailleNavaleApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 //		SpringApplication.run(BatailleNavaleApplication.class, args);
 		Player player1 = PlayerFactory.createPlayer("KIRITO");
 		Player player2 = PlayerFactory.createPlayer("MAX");

@@ -102,38 +102,60 @@ public class Player {
 		}
 	}
 
-	public void addBoats(){
-		Boat boat = new AircraftCarrier();
-		boat.generateBoat();
+	public void addBoats(Map map, Boat boat1) throws InterruptedException{
+		Boat boat = boat1;
+		boolean res = false;
+		while(res == false){
+			Thread.sleep(500);
+			boat.generateBoat();
+			res = boat.Collision(map);
+			System.out.println(res);
+		}
 		this.boats.add(boat);
+		for(Position pos :boat.getPositions()){
+			map.setBoatOnMap(pos);
+//			game.setOwnMap(map);
+		}
+	}
+	
+	public Map boatsList(Map map) throws InterruptedException{
+		for(int i =0;i<Parameter.nbAircraftCarrier;i++){
+			addBoats(map, new AircraftCarrier());
+			Thread.sleep(500);
+		}
+		for(int i =0;i<Parameter.nbBattleship;i++){
+			addBoats(map, new Battleship());
+			Thread.sleep(500);
+		}
+		for(int i =0;i<Parameter.nbCruiser;i++){
+			addBoats(map, new Cruiser());
+			Thread.sleep(500);
+		}
+		for(int i =0;i<Parameter.nbInterceptionSpeedBoat;i++){
+			addBoats(map, new InterceptionSpeedBoat());
+			Thread.sleep(500);
+		}
+		return map;
 	}
 
-	public Game createGame(){
+	public Game createGame() throws InterruptedException{
 		this.score = 0;
 		Game game = GameFactory.createGame(this);
-		addBoats();
 		game.setOwnMap(new Map());
 		game.setAttackMap(new Map());
 		game.setNbTour(0);
 		Map ownMap = game.getOwnMap();
-		for(Boat boat :this.getBoats()){
-			for(Position pos :boat.getPositions()){
-				ownMap.setBoatOnMap(pos);
-				game.setOwnMap(ownMap);
-			}
-		}
+		ownMap = boatsList(ownMap);
+		
+		game.setOwnMap(ownMap);
+			
 		return game;
 	}
 
-	public void joinGame(Game game){
+	public void joinGame(Game game) throws InterruptedException{
 		Map attackMap = game.getAttackMap();
-		addBoats();
-		for(Boat boat :this.getBoats()){
-			for(Position pos :boat.getPositions()){
-				attackMap.setBoatOnMap(pos);
-				game.setAttackMap(attackMap);
-			}
-		}
+		attackMap = boatsList(attackMap);
+		game.setAttackMap(attackMap);
 	}
 
 	public void displayBoat(Map map){
