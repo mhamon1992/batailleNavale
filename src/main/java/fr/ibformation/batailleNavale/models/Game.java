@@ -1,9 +1,23 @@
 package fr.ibformation.batailleNavale.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Game {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int gameId;
+	@OneToOne
 	private Player player1;
+	@OneToOne
 	private Player player2;
+	@OneToOne
 	private Map ownMap;
+	@OneToOne
 	private Map attackMap;
 	private int nbTour;
 	

@@ -4,10 +4,21 @@ package fr.ibformation.batailleNavale.models;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Boat {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int boatId;
 	private String boatName;
 	private int boatWidth;
+	@OneToMany
 	private List<Position> positions;
 	/**
 	 * 

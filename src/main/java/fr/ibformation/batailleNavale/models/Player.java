@@ -3,12 +3,23 @@ package fr.ibformation.batailleNavale.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.ibformation.batailleNavale.factories.GameFactory;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+
+import fr.ibformation.batailleNavale.factories.GameFactory;
+@Entity
 public class Player {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idPlayer;
 	private String nickname;
+	@OneToMany
 	private List<Boat> boats;
+	@OneToMany
 	private List<Missile> missiles;
 	private int score;
 	private int nbvictory;

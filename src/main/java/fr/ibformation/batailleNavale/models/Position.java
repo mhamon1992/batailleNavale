@@ -1,6 +1,15 @@
 package fr.ibformation.batailleNavale.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Position {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int positionId;
 	private int abscisse;
 	private int ordonnee;
 	private boolean occupe;
