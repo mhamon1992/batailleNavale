@@ -20,6 +20,8 @@ public class Boat {
 	private int boatWidth;
 	@OneToMany
 	private List<Position> positions;
+	@ManyToOne
+	private Player player;
 	/**
 	 * 
 	 */

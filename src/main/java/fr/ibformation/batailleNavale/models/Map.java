@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 @Entity
 public class Map {
 	@Id
@@ -14,6 +15,8 @@ public class Map {
 	private int mapId;
 	@OneToMany
 	private List<Position> positions;
+	@OneToOne
+	private Game game;
 	/**
 	 * @param positions
 	 */

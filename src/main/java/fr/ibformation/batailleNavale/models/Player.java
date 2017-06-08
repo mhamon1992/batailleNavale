@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
+import javax.persistence.OneToOne;
 
 import fr.ibformation.batailleNavale.factories.GameFactory;
 @Entity
@@ -23,6 +23,8 @@ public class Player {
 	private List<Missile> missiles;
 	private int score;
 	private int nbvictory;
+	@OneToOne
+	private Game game;
 
 	/**
 	 * @param idPlayer
