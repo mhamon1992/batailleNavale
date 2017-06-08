@@ -114,16 +114,17 @@ public class Player {
 	}
 
 	public void addBoats(Map map, Boat boat1) throws InterruptedException{
-		Boat boat = boat1;
 		boolean res = false;
 		while(res == false){
 			Thread.sleep(500);
+			Boat boat = boat1;
 			boat.generateBoat();
 			res = boat.Collision(map);
+			boat1 = boat;
 			System.out.println(res);
 		}
-		this.boats.add(boat);
-		for(Position pos :boat.getPositions()){
+		this.boats.add(boat1);
+		for(Position pos :boat1.getPositions()){
 			map.setBoatOnMap(pos);
 //			game.setOwnMap(map);
 		}
@@ -157,9 +158,7 @@ public class Player {
 		game.setNbTour(0);
 		Map ownMap = game.getOwnMap();
 		ownMap = boatsList(ownMap);
-		
 		game.setOwnMap(ownMap);
-			
 		return game;
 	}
 

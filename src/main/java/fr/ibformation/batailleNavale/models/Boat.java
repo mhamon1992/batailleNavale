@@ -61,6 +61,7 @@ public class Boat {
 		System.out.println("orientation"+value);
 		int initPositionX = random.nextInt(9);
 		int initPositionY = random.nextInt(9);
+		
 		if(value == 0){
 			for(int i = 0; i<this.getTailleBateau();i++){
 				Position pos = new Position();
@@ -73,6 +74,7 @@ public class Boat {
 					pos.setAbscisse(initPositionX+i);
 				}
 				this.positions.add(pos);
+				System.out.println("x:"+pos.getAbscisse()+",y:"+pos.getOrdonnee());
 			}
 		}else if(value == 1){
 			for(int i = 0; i<this.getTailleBateau();i++){
@@ -86,6 +88,7 @@ public class Boat {
 					pos.setOrdonnee(initPositionY+i);
 				}
 				this.positions.add(pos);
+				System.out.println("x:"+pos.getAbscisse()+",y:"+pos.getOrdonnee());
 			}
 		}
 	}
@@ -119,6 +122,7 @@ public class Boat {
 			int index = (pos.getAbscisse()*10+pos.getOrdonnee());
 			if(map.getPositions().get(index).isOccupe()){
 				res = false;
+				System.out.println(map.getPositions().get(index).getAbscisse()+" "+map.getPositions().get(index).getOrdonnee());
 			}
 		}
 		return res;
